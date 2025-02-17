@@ -1,0 +1,45 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+.env/
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors (e.g., VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# Docker files
+docker-compose.override.yml
+Dockerfile*
+
+# Temporary files
+*.tmp
+*.swp
+*~
+*.bak
+
+# Configuration files for sensitive data
+config/secrets.yaml
+config/*.env
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Pytest cache
+.cache/
