@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  # Main application service
+  sudo-sdk:
+    build: .
+    container_name: sudo-sdk-container
+    ports:
+      - "8000:8000"  # Adjust the port as necessary
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=info
+    volumes:
+      - .:/app  # Mount current directory to the container
+    networks:
+      - sudo-net
+    depends_on:
+      - blockchain-node  # Example of a dependency (if using a blockchain node)
+
+  # Blockchain node service (example, if applicable)
+  blockchain-node:
+    image: "ethereum/client-go:v1.10.11"
+    container_name: blockchain-node
+    ports:
+      - "8545:8545"  # Exposing the Ethereum RPC port
+    networks:
+      - sudo-net
+    environment:
+      - NETWORK_ID=1  # Example, adjust according to your network setup
+    volumes:
+      - blockchain-data:/root/.ethereum  # Persistent data storage for the blockchain node
+
+  # Optional: A service for an SQL database (e.g., PostgreSQL)
+  database:
+    image: "postgres:13"
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mysdkdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - sudo-net
+
+networks:
+  sudo-net:
+    driver: bridge
+
+volumes:
+  blockchain-data:
+    driver: local
+  db-data:
+    driver: local
